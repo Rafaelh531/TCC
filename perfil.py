@@ -13,7 +13,7 @@ P1=[-25.266667,-54.433333]
 P2=[-25.40798486,-54.58897424]
 
 print(haversine(P1, P2))
-samples =400
+samples =200
 distancias = []
 elevat = []
 dist = 0
