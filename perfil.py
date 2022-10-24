@@ -27,9 +27,12 @@ ENSECADEIRA_MD_MONTANTE= [-25.413056,-54.615278]
 
 ENSECADEIRA_MD_JUSANTE= [-25.413056,-54.615278]
 
+NOVO_POSTO_SILVA = [-25.575,-54.675]
 
-P1 = PAULISTANIA
+P1 = NOVO_POSTO_SILVA
 P2 = ESTAÇÃO_CENTRAL
+
+LOS = True
 
 print(haversine(P1, P2))
 samples =200
@@ -126,6 +129,18 @@ else:
 for idx,element in enumerate(elevat):
     print(distancias[idx], elevat[idx])
 
+
+maior = elevat[0]
+if elevat[-1] > maior:
+    maior = elevat[-1]
+
+for element in elevat[2:len(elevat)-2]:
+    if element >= maior:
+        LOS = False
+
+
+
+
 print(distancias)
 print("passo " + str(distancias[2]))
 plt.figure(figsize=(10,6))
@@ -136,8 +151,8 @@ plt.plot(distancias,elevat)
 # #plt.fill_between(d_list_rev,elev_list,base_reg,alpha=0.1)
 # plt.text(distancias[0],elevat,"Paulistania")
 # plt.text(distancias[-1],elevat,"Estação Central")
-# plt.xlabel("Distance(km)")
-# plt.ylabel("Elevation(m)")
+plt.xlabel("Distance(km)\n LOS: %s" % bool(LOS))
+plt.ylabel("Elevation(m)")
 # #plt.grid()
 # #plt.legend(fontsize='small')
 plt.show()
