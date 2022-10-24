@@ -49,7 +49,7 @@ P2 = PONTO2.coord
 
 LOS = True
 
-print(haversine(P1, P2))
+#print(haversine(P1, P2))
 samples =200
 distancias = []
 elevat = []
@@ -102,18 +102,18 @@ if samples <= 100:
 else:
     #url = link_base
     n_divisoes = int(math.ceil(samples/100)) + 1
-    print("N DIVISOES = " + str(n_divisoes))
+    #print("N DIVISOES = " + str(n_divisoes))
     sample_by_divisao = int(samples/(n_divisoes -1))
     url = url + "&samples=" + str(n_divisoes)
     url = url + "&interpolation=cubic"
-    print(url)
+    #print(url)
     response = urlopen(url)
     divisoes_raw = json.loads(response.read())
     divisoes = divisoes_raw['results']
-    print(divisoes)
+    #print(divisoes)
 
     for idx,element in enumerate(divisoes):
-        print("LEN DIST = " + str(len(distancias)))
+        #print("LEN DIST = " + str(len(distancias)))
         if idx == len(divisoes) -1:
                 break
         yy = divisoes[idx+1]
@@ -123,13 +123,13 @@ else:
         url = url + str(yy['location']['lng'])
         url = url + "&samples=" + str(sample_by_divisao)
         url = url + "&interpolation=cubic"
-        print(url)
+        #print(url)
         time.sleep(1.01)
         response = urlopen(url)
-        print("respondeu")
+        #print("respondeu")
         data_json = json.loads(response.read())
         x = data_json['results']
-        print("AAAAAAAAA= " + str(len(x)))
+        #print("AAAAAAAAA= " + str(len(x)))
         for idx2,element in enumerate(x):
             #print(element['elevation'])
             elevat.append(element['elevation'])
@@ -158,12 +158,14 @@ texto = "Distância:" + str(round(haversine(P1, P2),2))+"km "
 texto += "LOS: " + str(bool(LOS))
 
 #print(distancias)
-print("passo " + str(distancias[2]))
+#print("passo " + str(distancias[2]))
 plt.figure(figsize=(10,6))
 plt.plot(distancias,elevat,'g')
+plt.fill_between(distancias,elevat,color='green')
 plt.plot([distancias[0],distancias[-1]] ,[elevat[0]+PONTO1.torre, elevat[-1]+PONTO2.torre],'--',color='black',linewidth=0.8)
-plt.vlines(distancias[0],elevat[0],elevat[0]+PONTO1.torre,colors='r')
-plt.vlines(distancias[-1],elevat[-1],elevat[-1]+PONTO2.torre,colors='r')
+plt.vlines(distancias[0],elevat[0],elevat[0]+PONTO1.torre,colors='r',linewidth=2.0)
+plt.vlines(distancias[-1],elevat[-1],elevat[-1]+PONTO2.torre,colors='r',linewidth=2.0)
+#=plt.ylim(min(elevat)-min(elevat)*0.2, max(elevat)*1.2)     # set the ylim to bottom, top
 
 
 plt.xlabel("Distance(km)\n %s"%texto)
