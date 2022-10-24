@@ -157,18 +157,15 @@ for element in elevat[2:len(elevat)-2]:
 texto = "Distância:" + str(round(haversine(P1, P2),2))+"km "
 texto += "LOS: " + str(bool(LOS))
 
-print(distancias)
+#print(distancias)
 print("passo " + str(distancias[2]))
 plt.figure(figsize=(10,6))
-plt.plot(distancias,elevat)
-plt.plot([distancias[0],distancias[-1]] ,[elevat[0], elevat[-1]])
-#plt.axline((distancias[0], elevat[0]), (distancias[-1], elevat[-1]))
-# #plt.plot([0,distance],[min_elev,min_elev],'--g',label='min: '+str(min_elev)+' m')
-# #plt.plot([0,distance],[max_elev,max_elev],'--r',label='max: '+str(max_elev)+' m')
-# #plt.plot([0,distance],[mean_elev,mean_elev],'--y',label='ave: '+str(mean_elev)+' m')
-# #plt.fill_between(d_list_rev,elev_list,base_reg,alpha=0.1)
-# plt.text(distancias[0],elevat,"Paulistania")
-# plt.text(distancias[-1],elevat,"Estação Central")
+plt.plot(distancias,elevat,'g')
+plt.plot([distancias[0],distancias[-1]] ,[elevat[0]+PONTO1.torre, elevat[-1]+PONTO2.torre],'--',color='black',linewidth=0.8)
+plt.vlines(distancias[0],elevat[0],elevat[0]+PONTO1.torre,colors='r')
+plt.vlines(distancias[-1],elevat[-1],elevat[-1]+PONTO2.torre,colors='r')
+
+
 plt.xlabel("Distance(km)\n %s"%texto)
 plt.ylabel("Elevation(m)")
 # #plt.grid()
