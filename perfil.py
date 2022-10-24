@@ -9,28 +9,43 @@ import time
 from scipy.interpolate import interp1d
 import numpy as np
 
-ESTAÇÃO_CENTRAL= [-25.40798486,-54.58897424]
 
-IATE_CLUBE= [-25.555556,-54.591389]
+class estacao:
+  def __init__(self, coord, torre):
+    self.coord = coord
+    self.torre = torre
 
-PEDRO_ORTELLADO= [-25.413056,-54.615278]
 
-PONTE_DA_AMIZADE= [-25.511944,54.603333]
+ESTAÇÃO_CENTRAL= estacao([-25.40798486,-54.58897424],15)
 
-R_11_MONDAY= [-25.613889,-54.599722]
+IATE_CLUBE=  estacao([-25.555556,-54.591389],5)
 
-R_4= [-25.441667,-54.602778]
+PEDRO_ORTELLADO=  estacao([-25.413056,-54.615278],5)
 
-PAULISTANIA= [-25.266667,-54.433333]
+PONTE_DA_AMIZADE=  estacao([-25.511944,54.603333],5)
 
-ENSECADEIRA_MD_MONTANTE= [-25.413056,-54.615278]
+R_11_MONDAY= estacao( [-25.613889,-54.599722],35)
 
-ENSECADEIRA_MD_JUSANTE= [-25.413056,-54.615278]
+R_4=  estacao([-25.441667,-54.602778],5)
 
-NOVO_POSTO_SILVA = [-25.575,-54.675]
+PAULISTANIA= estacao( [-25.266667,-54.433333],5)
 
-P1 = NOVO_POSTO_SILVA
-P2 = ESTAÇÃO_CENTRAL
+ENSECADEIRA_MD_MONTANTE=  estacao([-25.413056,-54.615278],5)
+
+ENSECADEIRA_MD_JUSANTE=  estacao([-25.413056,-54.615278],5)
+
+NOVO_POSTO_SILVA =  estacao([-25.575,-54.675],5)
+
+
+############################################################################################################################################
+PONTO1= NOVO_POSTO_SILVA
+PONTO2 = ESTAÇÃO_CENTRAL
+############################################################################################################################################
+
+
+
+P1 = PONTO1.coord
+P2 = PONTO2.coord
 
 LOS = True
 
@@ -126,8 +141,8 @@ else:
             distancias.append(dist)
 
 
-for idx,element in enumerate(elevat):
-    print(distancias[idx], elevat[idx])
+#for idx,element in enumerate(elevat):
+#    print(distancias[idx], elevat[idx])
 
 
 maior = elevat[0]
@@ -139,19 +154,22 @@ for element in elevat[2:len(elevat)-2]:
         LOS = False
 
 
-
+texto = "Distância:" + str(round(haversine(P1, P2),2))+"km "
+texto += "LOS: " + str(bool(LOS))
 
 print(distancias)
 print("passo " + str(distancias[2]))
 plt.figure(figsize=(10,6))
 plt.plot(distancias,elevat)
+plt.plot([distancias[0],distancias[-1]] ,[elevat[0], elevat[-1]])
+#plt.axline((distancias[0], elevat[0]), (distancias[-1], elevat[-1]))
 # #plt.plot([0,distance],[min_elev,min_elev],'--g',label='min: '+str(min_elev)+' m')
 # #plt.plot([0,distance],[max_elev,max_elev],'--r',label='max: '+str(max_elev)+' m')
 # #plt.plot([0,distance],[mean_elev,mean_elev],'--y',label='ave: '+str(mean_elev)+' m')
 # #plt.fill_between(d_list_rev,elev_list,base_reg,alpha=0.1)
 # plt.text(distancias[0],elevat,"Paulistania")
 # plt.text(distancias[-1],elevat,"Estação Central")
-plt.xlabel("Distance(km)\n LOS: %s" % bool(LOS))
+plt.xlabel("Distance(km)\n %s"%texto)
 plt.ylabel("Elevation(m)")
 # #plt.grid()
 # #plt.legend(fontsize='small')
