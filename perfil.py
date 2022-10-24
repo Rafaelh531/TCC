@@ -165,7 +165,7 @@ plt.fill_between(distancias,elevat,color='green')
 plt.plot([distancias[0],distancias[-1]] ,[elevat[0]+PONTO1.torre, elevat[-1]+PONTO2.torre],'--',color='black',linewidth=0.8)
 plt.vlines(distancias[0],elevat[0],elevat[0]+PONTO1.torre,colors='r',linewidth=2.0)
 plt.vlines(distancias[-1],elevat[-1],elevat[-1]+PONTO2.torre,colors='r',linewidth=2.0)
-#=plt.ylim(min(elevat)-min(elevat)*0.2, max(elevat)*1.2)     # set the ylim to bottom, top
+plt.ylim(min(elevat)-min(elevat)*0.2, max(elevat)*1.2)     # set the ylim to bottom, top
 
 
 plt.xlabel("Distance(km)\n %s"%texto)
