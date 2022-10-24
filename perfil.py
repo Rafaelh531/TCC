@@ -1,3 +1,4 @@
+from dis import dis
 import enum
 from haversine import haversine, Unit
 from urllib.request import urlopen
@@ -38,7 +39,7 @@ NOVO_POSTO_SILVA =  estacao([-25.575,-54.675],5)
 
 
 ############################################################################################################################################
-PONTO1= NOVO_POSTO_SILVA
+PONTO1= PAULISTANIA
 PONTO2 = ESTAÇÃO_CENTRAL
 ############################################################################################################################################
 
@@ -154,11 +155,22 @@ for element in elevat[2:len(elevat)-2]:
         LOS = False
 
 
-texto = "Distância:" + str(round(haversine(P1, P2),2))+"km "
-texto += "LOS: " + str(bool(LOS))
-
+CA = (distancias[-1]-distancias[0])*1000
+if(elevat[0]> elevat[-1]):
+    CO = (elevat[0]+PONTO1.torre) - (elevat[-1]+PONTO2.torre)
+else:
+    CO = (elevat[-1]+PONTO2.torre) - (elevat[0]+PONTO1.torre)
+distancia_real = math.sqrt((CA**2)+(CO**2))
 #print(distancias)
 #print("passo " + str(distancias[2]))
+
+
+
+texto = "Distância:" + str(round(haversine(P1, P2),2))+"km "
+texto += "LOS: " + str(bool(LOS))
+texto += " Distância diagonal:" + str(round((distancia_real/1000),2))+"km "
+
+
 plt.figure(figsize=(10,6))
 plt.plot(distancias,elevat,'g')
 plt.fill_between(distancias,elevat,color='green')
