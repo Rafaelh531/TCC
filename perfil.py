@@ -12,40 +12,41 @@ import numpy as np
 
 
 class estacao:
-  def __init__(self, coord, torre):
+  def __init__(self, coord, torre,name):
+    self.name = name
     self.coord = coord
     self.torre = torre
 
 
-ESTAÇÃO_CENTRAL= estacao([-25.40798486,-54.58897424],15)
+ESTAÇÃO_CENTRAL= estacao([-25.40798486,-54.58897424],15,"ESTAÇÃO_CENTRAL")
 
-IATE_CLUBE=  estacao([-25.555556,-54.591389],5)
+IATE_CLUBE=  estacao([-25.555556,-54.591389],5,"IATE_CLUBE")
 
-PEDRO_ORTELLADO=  estacao([-25.413056,-54.615278],5)
+PEDRO_ORTELLADO=  estacao([-25.413056,-54.615278],5,"PEDRO_ORTELLADO")
 
-PONTE_DA_AMIZADE=  estacao([-25.511944,-54.603333],5)
+PONTE_DA_AMIZADE=  estacao([-25.511944,-54.603333],5,"PONTE_DA_AMIZADE")
 
-R_11_MONDAY= estacao( [-25.613889,-54.599722],35)
+R_11_MONDAY= estacao( [-25.613889,-54.599722],35,"R_11_MONDAY")
 
-R_4=  estacao([-25.441667,-54.602778],5)
+R_4=  estacao([-25.441667,-54.602778],5,"R_4")
 
-PAULISTANIA= estacao( [-25.266667,-54.433333],5)
+PAULISTANIA= estacao( [-25.266667,-54.433333],5,"PAULISTANIA")
 
-ENSECADEIRA_MD_MONTANTE=  estacao([-25.413056,-54.615278],5)
+ENSECADEIRA_MD_MONTANTE=  estacao([-25.413056,-54.615278],5,"ENSECADEIRA_MD_MONTANTE")
 
-ENSECADEIRA_MD_JUSANTE=  estacao([-25.413056,-54.615278],5)
+ENSECADEIRA_MD_JUSANTE=  estacao([-25.413056,-54.615278],5,"ENSECADEIRA_MD_JUSANTE")
 
-NOVO_POSTO_SILVA =  estacao([-25.575,-54.675],5)
+NOVO_POSTO_SILVA =  estacao([-25.575,-54.675],5,"NOVO_POSTO_SILVA")
 
 
 ############################################################################################################################################
 PONTO1= PAULISTANIA
-PONTO2 = ESTAÇÃO_CENTRAL
+PONTO2 =  ESTAÇÃO_CENTRAL
 ############################################################################################################################################
 
 
 
-P1 = [-25.547221, -54.597916]
+P1 = PONTO1.coord
 P2 = PONTO2.coord
 
 LOS = True
@@ -133,7 +134,7 @@ else:
         #print("AAAAAAAAA= " + str(len(x)))
         for idx2,element in enumerate(x):
             #print(element['elevation'])
-            elevat.append(element['elevacmtion'])
+            elevat.append(element['elevation'])
             xx = element
             p1 = [xx['location']['lat'],xx['location']['lng']]
             #p2 = [y['location']['lat'],y['location']['lng']]
@@ -178,10 +179,10 @@ plt.plot([distancias[0],distancias[-1]] ,[elevat[0]+PONTO1.torre, elevat[-1]+PON
 plt.vlines(distancias[0],elevat[0],elevat[0]+PONTO1.torre,colors='r',linewidth=2.0)
 plt.vlines(distancias[-1],elevat[-1],elevat[-1]+PONTO2.torre,colors='r',linewidth=2.0)
 plt.ylim(min(elevat)-min(elevat)*0.2, max(elevat)*1.2)     # set the ylim to bottom, top
+plt.title("Enlace " + PONTO1.name + " <> " + PONTO2.name)
 
-
-plt.xlabel("Distance(km)\n %s"%texto)
-plt.ylabel("Elevation(m)")
+plt.xlabel("Distância(km)\n %s"%texto)
+plt.ylabel("Elevação(m)")
 # #plt.grid()
 # #plt.legend(fontsize='small')
 plt.show()
