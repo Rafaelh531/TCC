@@ -133,7 +133,7 @@ else:
         #print("AAAAAAAAA= " + str(len(x)))
         for idx2,element in enumerate(x):
             #print(element['elevation'])
-            elevat.append(element['elevation'])
+            elevat.append(element['elevacmtion'])
             xx = element
             p1 = [xx['location']['lat'],xx['location']['lng']]
             #p2 = [y['location']['lat'],y['location']['lng']]
